@@ -11,16 +11,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using WpfApp1Tema2___Checkers__New_.View_Models;
 
 namespace WpfApp1Tema2___Checkers__New_.Views
 {
     /// <summary>
-    /// Interaction logic for FileWindowView.xaml
+    /// Interaction logic for StatisticsWindowView.xaml
     /// </summary>
-    public partial class FileWindowView : Window
+    public partial class StatisticsWindowView : Window
     {
-        public FileWindowView()
+        public StatisticsWindowView()
         {
             InitializeComponent();
         }

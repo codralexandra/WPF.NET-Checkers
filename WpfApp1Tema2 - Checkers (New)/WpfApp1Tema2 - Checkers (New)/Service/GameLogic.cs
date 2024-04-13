@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using WpfApp1Tema2___Checkers__New_.Models;
+using WpfApp1Tema2___Checkers__New_.View_Models;
 
 namespace WpfApp1Tema2___Checkers__New_.Service
 {
@@ -24,7 +25,7 @@ namespace WpfApp1Tema2___Checkers__New_.Service
                 NotifyPropertyChanged();
             }
         }
-        public bool MultipleJump { get; set; } = true;
+        public bool MultipleJump { get; set; }
         public int _RedPieces { get; set; }
         public int RedPieces
         {
@@ -52,13 +53,21 @@ namespace WpfApp1Tema2___Checkers__New_.Service
 
         #region methods
 
-        public GameLogic(ObservableCollection<ObservableCollection<Cell>> b)
+        public void TransmitAllowMultipleJump()
+        {
+            // Access the property value from the other ViewModel
+            
+            // Do something with the value...
+        }
+
+        public GameLogic(ObservableCollection<ObservableCollection<Cell>> b, FileWindowViewModel fileVM)
         {
             board = b;
             currentPlayerColor = PieceColor.Red;
             State = GameState.Ongoing;
             RedPieces = 12;
             BlackPieces = 12;
+            MultipleJump = fileVM.AllowMultipleJump;
         }
 
         #region inits

@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfApp1Tema2___Checkers__New_.View_Models;
 
 namespace WpfApp1Tema2___Checkers__New_.Views
 {
@@ -22,19 +23,7 @@ namespace WpfApp1Tema2___Checkers__New_.Views
         public MainMenuView()
         {
             InitializeComponent();
-        }
-
-        private void helpButton_Click(object sender, RoutedEventArgs e)
-        {
-            HelpWindowView helpWindow = new HelpWindowView();
-            helpWindow.Show();
-        }
-
-        private void fileButton_Click(Object sender, RoutedEventArgs e)
-        {
-            FileWindowView fileWindow = new FileWindowView();
-            this.Close();
-            fileWindow.Show();
+            DataContext = new MainMenuWindowViewModel();
         }
     }
 }

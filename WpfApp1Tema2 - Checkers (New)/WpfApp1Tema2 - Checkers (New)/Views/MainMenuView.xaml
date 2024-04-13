@@ -4,19 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1Tema2___Checkers__New_.Views"
+        xmlns:ctx="clr-namespace:WpfApp1Tema2___Checkers__New_.View_Models"
         mc:Ignorable="d"
         Title="MainMenuView" Height="450" Width="800">
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <Label FontSize="50" Margin="20" FontWeight="Black">Checkers</Label>
-            <Button Margin="10" Height="30" FontWeight="Bold" Click="fileButton_Click">FILE
+            <Button Margin="10" Height="30" FontWeight="Bold" Command="{Binding OpenGameOptionsWindow}">FILE
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button Margin="10" Height="30" FontWeight="Bold" Click="helpButton_Click">HELP
+            <Button Margin="10" Height="30" FontWeight="Bold" Command="{Binding OpenAboutWindow}">HELP
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>

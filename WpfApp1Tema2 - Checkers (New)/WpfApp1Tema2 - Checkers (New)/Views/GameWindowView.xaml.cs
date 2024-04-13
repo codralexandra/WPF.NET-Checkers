@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfApp1Tema2___Checkers__New_.View_Models;
 
 namespace WpfApp1Tema2___Checkers__New_.Views
 {
@@ -22,11 +23,7 @@ namespace WpfApp1Tema2___Checkers__New_.Views
         public GameWindowView()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
+            DataContext = new FileWindowViewModel();
         }
     }
 }

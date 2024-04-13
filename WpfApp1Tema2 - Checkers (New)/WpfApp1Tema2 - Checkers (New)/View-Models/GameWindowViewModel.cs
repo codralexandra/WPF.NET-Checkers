@@ -45,10 +45,10 @@ namespace WpfApp1Tema2___Checkers__New_.View_Models
 
         private ICommand clickCommand;
 
-        public GameWindowViewModel()
+        public GameWindowViewModel(FileWindowViewModel fileVM)
         {
             GameBoard = GameLogic.InitGameBoard();
-            GameLogic = new GameLogic(GameBoard);
+            GameLogic = new GameLogic(GameBoard,fileVM);
             currentPlayer = GameLogic.currentPlayerColor.ToCustomString();
             redPieces = GameLogic.RedPieces;
             blackPieces = GameLogic.BlackPieces;
@@ -78,6 +78,11 @@ namespace WpfApp1Tema2___Checkers__New_.View_Models
                 }
             };
         }
+
+        //public GameWindowViewModel(string filename)
+        //{
+
+        //}
 
         public ICommand ClickCommand
         {
