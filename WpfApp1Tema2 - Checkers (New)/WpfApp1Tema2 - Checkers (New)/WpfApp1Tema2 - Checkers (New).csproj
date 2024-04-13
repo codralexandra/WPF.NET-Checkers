@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,9 +56,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\BoardSquareModel.cs" />
-    <Compile Include="Service\GameBusinessLogic.cs" />
-    <Compile Include="Service\PieceColors.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Models\BaseNotification.cs" />
+    <Compile Include="Models\Cell.cs" />
+    <Compile Include="Models\GameState.cs" />
+    <Compile Include="Models\PieceColor.cs" />
+    <Compile Include="Models\PieceType.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Service\GameLogic.cs" />
+    <Compile Include="Service\SerializationActions.cs" />
     <Compile Include="View-Models\GameWindowViewModel.cs" />
     <Compile Include="Views\FileWindowView.xaml.cs">
       <DependentUpon>FileWindowView.xaml</DependentUpon>
@@ -104,11 +115,6 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -127,7 +133,43 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Commands\" />
+    <Resource Include="Views\Assets\selectedPiece.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Assets\blackPiece.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\Assets\blackPieceKing.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\Assets\favicon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\Assets\redPiece.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\Assets\redPieceKing.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Assets\Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Assets\board.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Inputs\GameEndTest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Inputs\MultipleJumpTest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Inputs\KingPieceTest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Inputs\MultipleJumpIntoKingPieceTest.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

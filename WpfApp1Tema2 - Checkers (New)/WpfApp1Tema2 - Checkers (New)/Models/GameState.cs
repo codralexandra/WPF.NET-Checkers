@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfApp1Tema2___Checkers__New_.Service
+namespace WpfApp1Tema2___Checkers__New_.Models
 {
-    internal enum PieceColors
+    public enum GameState
     {
-        None = 0,
-        White = 1,
-        Red = 2,
+        Ongoing,
+        Finished
     }
 }

@@ -9,7 +9,7 @@
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <Label FontSize="50" Margin="20" FontWeight="Black">Checkers</Label>
-            <Button Margin="10" Height="30" FontWeight="Bold">FILE
+            <Button Margin="10" Height="30" FontWeight="Bold" Click="fileButton_Click">FILE
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>

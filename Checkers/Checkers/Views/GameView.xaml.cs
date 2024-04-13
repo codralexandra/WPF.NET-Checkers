@@ -12,21 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace WpfApp1Tema2___Checkers__New_.Views
+namespace Checkers.Views
 {
     /// <summary>
-    /// Interaction logic for GameWindowView.xaml
+    /// Interaction logic for GameView.xaml
     /// </summary>
-    public partial class GameWindowView : Window
+    public partial class GameView : Window
     {
-        public GameWindowView()
+        public GameView()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

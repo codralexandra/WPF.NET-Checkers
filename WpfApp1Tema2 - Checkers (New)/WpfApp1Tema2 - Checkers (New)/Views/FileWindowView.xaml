@@ -8,7 +8,7 @@
         Title="FileWindowView" Height="350" Width="400">
     <Grid>
         <StackPanel Name="ButtonsContainer" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Margin="10" FontWeight="Bold">NEW GAME</Button>
+            <Button Margin="10" FontWeight="Bold" Click="newGameButton_Click">NEW GAME</Button>
             <Button Margin="10" FontWeight="Bold">OPEN GAME</Button>
             <CheckBox Margin="10" FontWeight="Bold">Allow multiple jump</CheckBox>
             <Button Margin="10" FontWeight="Bold">STATISTICS</Button>

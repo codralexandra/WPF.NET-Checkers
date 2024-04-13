@@ -23,5 +23,11 @@ namespace WpfApp1Tema2___Checkers__New_.Views
         {
             InitializeComponent();
         }
+
+        private void newGameButton_Click(object sender, RoutedEventArgs e)
+        {
+            GameWindowView gameWindow = new GameWindowView();
+            gameWindow.Show();
+        }
     }
 }

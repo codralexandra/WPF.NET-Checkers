@@ -6,16 +6,73 @@
         xmlns:local="clr-namespace:WpfApp1Tema2___Checkers__New_.Views"
         xmlns:ctx="clr-namespace:WpfApp1Tema2___Checkers__New_.View_Models"
         mc:Ignorable="d"
-        Title="GameWindowView" Height="450" Width="800">
+        Title="GameWindowView" Height="500" Width="800"
+        Icon="Assets/favicon.ico">
     <Window.DataContext>
-        <ctx:GameWindowViewModel></ctx:GameWindowViewModel>
+        <ctx:GameWindowViewModel/>
     </Window.DataContext>
     <Grid>
         <WrapPanel>
-            <Border Name="GameBoard" Width="400" Height="400" Margin="20"></Border>
-            <StackPanel Width="300">
-                <Label>Player to move:</Label>
-                <Label>Score:</Label>
+            <ItemsControl Name="grid" ItemsSource="{Binding GameBoard}" VerticalAlignment="Center" HorizontalAlignment="Center" Width="400" Height="400" Margin="20">
+                <ItemsControl.Background>
+                    <ImageBrush ImageSource="Assets/board.png"/>
+                </ItemsControl.Background>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ItemsControl ItemsSource="{Binding}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Width="50" Height="50">
+                                        <Button Command="{Binding DataContext.ClickCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" 
+                                        CommandParameter="{Binding}">
+                                            <Button.Template>
+                                                <ControlTemplate>
+                                                    <!--" Image Source="{Binding PieceImage}" Stretch="Fill"/-->
+                                                    <Image
+                                                  Width="50"
+                                                    Height="50"
+                                                    Source="{Binding PieceImage}"
+                                                    Stretch="Fill">
+                                                        <Image.Style>
+                                                            <Style TargetType="Image">
+                                                                <Setter Property="Opacity" Value="1" />
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding PieceImage}" Value="E:\Scoala\d.png">
+                                                                        <Setter Property="Opacity" Value="0" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Image.Style>
+                                                    </Image>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <WrapPanel>
+                    <Label FontWeight="Bold">Red pieces:</Label>
+                    <Label Name="redPieces" Content="{Binding redPieces}"></Label>
+                </WrapPanel>
+                <WrapPanel>
+                    <Label FontWeight="Bold">Black pieces:</Label>
+                    <Label Name="blackPieces" Content="{Binding blackPieces}"></Label>
+                </WrapPanel>
+                <WrapPanel>
+                    <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold">Player turn:</Label>
+                    <Label Name="currentPlayerLabel" Content="{Binding currentPlayer}" FontSize="20"></Label>
+                </WrapPanel>
+                <Button Name="saveButton">Save Game</Button>
             </StackPanel>
         </WrapPanel>
     </Grid>
