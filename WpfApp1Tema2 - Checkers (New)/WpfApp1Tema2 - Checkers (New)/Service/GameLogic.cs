@@ -68,7 +68,11 @@ namespace WpfApp1Tema2___Checkers__New_.Service
 
         private void SaveStatistics()
         {
-            string filename = "GameStatistics.xml";
+            string folderPath = "../../Inputs"; // Specify the relative folder path within your project
+            string filename = Path.Combine(folderPath, "GameStatistics.xml"); // Combine folder path with file name
+
+            // Ensure the directory exists, if not, create it
+            Directory.CreateDirectory(Path.GetDirectoryName(filename));
 
             XDocument doc;
             if (File.Exists(filename))
@@ -103,6 +107,7 @@ namespace WpfApp1Tema2___Checkers__New_.Service
                 blackWinsElement.Value = blackWins.ToString();
             }
 
+            // Save the XML document to the specified folder
             doc.Save(filename);
         }
 
