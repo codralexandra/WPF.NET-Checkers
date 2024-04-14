@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <GameSaveData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <CurrentPlayer>Black</CurrentPlayer>
-  <RedPieces>10</RedPieces>
-  <BlackPieces>9</BlackPieces>
+  <RedPieces>12</RedPieces>
+  <BlackPieces>12</BlackPieces>
   <IsPreviousPositionSet>false</IsPreviousPositionSet>
   <PreviousPositionRow>0</PreviousPositionRow>
   <PreviousPositionColumn>0</PreviousPositionColumn>
-  <MultipleJump>true</MultipleJump>
+  <MultipleJump>false</MultipleJump>
   <Board>
     <ArrayOfCell>
       <Cell>
@@ -122,11 +122,11 @@
       <Cell>
         <X>1</X>
         <Y>4</Y>
-        <pieceImage>Assets/Empty.png</pieceImage>
+        <pieceImage>Assets/redPiece.png</pieceImage>
         <SelectedImage>Assets/selectedPiece.png</SelectedImage>
-        <PieceType>None</PieceType>
-        <PieceColor>None</PieceColor>
-        <PieceImage>Assets/Empty.png</PieceImage>
+        <PieceType>Normal</PieceType>
+        <PieceColor>Red</PieceColor>
+        <PieceImage>Assets/redPiece.png</PieceImage>
       </Cell>
       <Cell>
         <X>1</X>
@@ -140,11 +140,11 @@
       <Cell>
         <X>1</X>
         <Y>6</Y>
-        <pieceImage>Assets/Empty.png</pieceImage>
+        <pieceImage>Assets/redPiece.png</pieceImage>
         <SelectedImage>Assets/selectedPiece.png</SelectedImage>
-        <PieceType>None</PieceType>
-        <PieceColor>None</PieceColor>
-        <PieceImage>Assets/Empty.png</PieceImage>
+        <PieceType>Normal</PieceType>
+        <PieceColor>Red</PieceColor>
+        <PieceImage>Assets/redPiece.png</PieceImage>
       </Cell>
       <Cell>
         <X>1</X>
@@ -205,11 +205,11 @@
       <Cell>
         <X>2</X>
         <Y>5</Y>
-        <pieceImage>Assets/Empty.png</pieceImage>
+        <pieceImage>Assets/redPiece.png</pieceImage>
         <SelectedImage>Assets/selectedPiece.png</SelectedImage>
-        <PieceType>None</PieceType>
-        <PieceColor>None</PieceColor>
-        <PieceImage>Assets/Empty.png</PieceImage>
+        <PieceType>Normal</PieceType>
+        <PieceColor>Red</PieceColor>
+        <PieceImage>Assets/redPiece.png</PieceImage>
       </Cell>
       <Cell>
         <X>2</X>
@@ -223,11 +223,11 @@
       <Cell>
         <X>2</X>
         <Y>7</Y>
-        <pieceImage>Assets/redPiece.png</pieceImage>
+        <pieceImage>Assets/Empty.png</pieceImage>
         <SelectedImage>Assets/selectedPiece.png</SelectedImage>
-        <PieceType>Normal</PieceType>
-        <PieceColor>Red</PieceColor>
-        <PieceImage>Assets/redPiece.png</PieceImage>
+        <PieceType>None</PieceType>
+        <PieceColor>None</PieceColor>
+        <PieceImage>Assets/Empty.png</PieceImage>
       </Cell>
     </ArrayOfCell>
     <ArrayOfCell>
@@ -288,11 +288,11 @@
       <Cell>
         <X>3</X>
         <Y>6</Y>
-        <pieceImage>Assets/Empty.png</pieceImage>
+        <pieceImage>Assets/redPiece.png</pieceImage>
         <SelectedImage>Assets/selectedPiece.png</SelectedImage>
-        <PieceType>None</PieceType>
-        <PieceColor>None</PieceColor>
-        <PieceImage>Assets/Empty.png</PieceImage>
+        <PieceType>Normal</PieceType>
+        <PieceColor>Red</PieceColor>
+        <PieceImage>Assets/redPiece.png</PieceImage>
       </Cell>
       <Cell>
         <X>3</X>
@@ -317,6 +317,71 @@
       <Cell>
         <X>4</X>
         <Y>1</Y>
+        <pieceImage>Assets/Empty.png</pieceImage>
+        <SelectedImage>Assets/selectedPiece.png</SelectedImage>
+        <PieceType>None</PieceType>
+        <PieceColor>None</PieceColor>
+        <PieceImage>Assets/Empty.png</PieceImage>
+      </Cell>
+      <Cell>
+        <X>4</X>
+        <Y>2</Y>
+        <pieceImage>Assets/Empty.png</pieceImage>
+        <SelectedImage>Assets/selectedPiece.png</SelectedImage>
+        <PieceType>None</PieceType>
+        <PieceColor>None</PieceColor>
+        <PieceImage>Assets/Empty.png</PieceImage>
+      </Cell>
+      <Cell>
+        <X>4</X>
+        <Y>3</Y>
+        <pieceImage>Assets/Empty.png</pieceImage>
+        <SelectedImage>Assets/selectedPiece.png</SelectedImage>
+        <PieceType>None</PieceType>
+        <PieceColor>None</PieceColor>
+        <PieceImage>Assets/Empty.png</PieceImage>
+      </Cell>
+      <Cell>
+        <X>4</X>
+        <Y>4</Y>
+        <pieceImage>Assets/Empty.png</pieceImage>
+        <SelectedImage>Assets/selectedPiece.png</SelectedImage>
+        <PieceType>None</PieceType>
+        <PieceColor>None</PieceColor>
+        <PieceImage>Assets/Empty.png</PieceImage>
+      </Cell>
+      <Cell>
+        <X>4</X>
+        <Y>5</Y>
+        <pieceImage>Assets/Empty.png</pieceImage>
+        <SelectedImage>Assets/selectedPiece.png</SelectedImage>
+        <PieceType>None</PieceType>
+        <PieceColor>None</PieceColor>
+        <PieceImage>Assets/Empty.png</PieceImage>
+      </Cell>
+      <Cell>
+        <X>4</X>
+        <Y>6</Y>
+        <pieceImage>Assets/Empty.png</pieceImage>
+        <SelectedImage>Assets/selectedPiece.png</SelectedImage>
+        <PieceType>None</PieceType>
+        <PieceColor>None</PieceColor>
+        <PieceImage>Assets/Empty.png</PieceImage>
+      </Cell>
+      <Cell>
+        <X>4</X>
+        <Y>7</Y>
+        <pieceImage>Assets/Empty.png</pieceImage>
+        <SelectedImage>Assets/selectedPiece.png</SelectedImage>
+        <PieceType>None</PieceType>
+        <PieceColor>None</PieceColor>
+        <PieceImage>Assets/Empty.png</PieceImage>
+      </Cell>
+    </ArrayOfCell>
+    <ArrayOfCell>
+      <Cell>
+        <X>5</X>
+        <Y>0</Y>
         <pieceImage>Assets/blackPiece.png</pieceImage>
         <SelectedImage>Assets/selectedPiece.png</SelectedImage>
         <PieceType>Normal</PieceType>
@@ -324,71 +389,6 @@
         <PieceImage>Assets/blackPiece.png</PieceImage>
       </Cell>
       <Cell>
-        <X>4</X>
-        <Y>2</Y>
-        <pieceImage>Assets/Empty.png</pieceImage>
-        <SelectedImage>Assets/selectedPiece.png</SelectedImage>
-        <PieceType>None</PieceType>
-        <PieceColor>None</PieceColor>
-        <PieceImage>Assets/Empty.png</PieceImage>
-      </Cell>
-      <Cell>
-        <X>4</X>
-        <Y>3</Y>
-        <pieceImage>Assets/Empty.png</pieceImage>
-        <SelectedImage>Assets/selectedPiece.png</SelectedImage>
-        <PieceType>None</PieceType>
-        <PieceColor>None</PieceColor>
-        <PieceImage>Assets/Empty.png</PieceImage>
-      </Cell>
-      <Cell>
-        <X>4</X>
-        <Y>4</Y>
-        <pieceImage>Assets/Empty.png</pieceImage>
-        <SelectedImage>Assets/selectedPiece.png</SelectedImage>
-        <PieceType>None</PieceType>
-        <PieceColor>None</PieceColor>
-        <PieceImage>Assets/Empty.png</PieceImage>
-      </Cell>
-      <Cell>
-        <X>4</X>
-        <Y>5</Y>
-        <pieceImage>Assets/Empty.png</pieceImage>
-        <SelectedImage>Assets/selectedPiece.png</SelectedImage>
-        <PieceType>None</PieceType>
-        <PieceColor>None</PieceColor>
-        <PieceImage>Assets/Empty.png</PieceImage>
-      </Cell>
-      <Cell>
-        <X>4</X>
-        <Y>6</Y>
-        <pieceImage>Assets/Empty.png</pieceImage>
-        <SelectedImage>Assets/selectedPiece.png</SelectedImage>
-        <PieceType>None</PieceType>
-        <PieceColor>None</PieceColor>
-        <PieceImage>Assets/Empty.png</PieceImage>
-      </Cell>
-      <Cell>
-        <X>4</X>
-        <Y>7</Y>
-        <pieceImage>Assets/Empty.png</pieceImage>
-        <SelectedImage>Assets/selectedPiece.png</SelectedImage>
-        <PieceType>None</PieceType>
-        <PieceColor>None</PieceColor>
-        <PieceImage>Assets/Empty.png</PieceImage>
-      </Cell>
-    </ArrayOfCell>
-    <ArrayOfCell>
-      <Cell>
-        <X>5</X>
-        <Y>0</Y>
-        <pieceImage>Assets/Empty.png</pieceImage>
-        <SelectedImage>Assets/selectedPiece.png</SelectedImage>
-        <PieceType>None</PieceType>
-        <PieceColor>None</PieceColor>
-        <PieceImage>Assets/Empty.png</PieceImage>
-      </Cell>
-      <Cell>
         <X>5</X>
         <Y>1</Y>
         <pieceImage>Assets/Empty.png</pieceImage>
@@ -400,11 +400,11 @@
       <Cell>
         <X>5</X>
         <Y>2</Y>
-        <pieceImage>Assets/Empty.png</pieceImage>
+        <pieceImage>Assets/blackPiece.png</pieceImage>
         <SelectedImage>Assets/selectedPiece.png</SelectedImage>
-        <PieceType>None</PieceType>
-        <PieceColor>None</PieceColor>
-        <PieceImage>Assets/Empty.png</PieceImage>
+        <PieceType>Normal</PieceType>
+        <PieceColor>Black</PieceColor>
+        <PieceImage>Assets/blackPiece.png</PieceImage>
       </Cell>
       <Cell>
         <X>5</X>
@@ -418,11 +418,11 @@
       <Cell>
         <X>5</X>
         <Y>4</Y>
-        <pieceImage>Assets/redPiece.png</pieceImage>
+        <pieceImage>Assets/blackPiece.png</pieceImage>
         <SelectedImage>Assets/selectedPiece.png</SelectedImage>
         <PieceType>Normal</PieceType>
-        <PieceColor>Red</PieceColor>
-        <PieceImage>Assets/redPiece.png</PieceImage>
+        <PieceColor>Black</PieceColor>
+        <PieceImage>Assets/blackPiece.png</PieceImage>
       </Cell>
       <Cell>
         <X>5</X>
@@ -465,11 +465,11 @@
       <Cell>
         <X>6</X>
         <Y>1</Y>
-        <pieceImage>Assets/Empty.png</pieceImage>
+        <pieceImage>Assets/blackPiece.png</pieceImage>
         <SelectedImage>Assets/selectedPiece.png</SelectedImage>
-        <PieceType>None</PieceType>
-        <PieceColor>None</PieceColor>
-        <PieceImage>Assets/Empty.png</PieceImage>
+        <PieceType>Normal</PieceType>
+        <PieceColor>Black</PieceColor>
+        <PieceImage>Assets/blackPiece.png</PieceImage>
       </Cell>
       <Cell>
         <X>6</X>

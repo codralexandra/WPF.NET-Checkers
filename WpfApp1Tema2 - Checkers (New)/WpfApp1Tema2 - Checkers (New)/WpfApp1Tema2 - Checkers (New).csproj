@@ -68,10 +68,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Service\GameLogic.cs" />
+    <Compile Include="Service\GameSaveData.cs" />
     <Compile Include="Service\SerializationActions.cs" />
     <Compile Include="View-Models\FileWindowViewModel.cs" />
     <Compile Include="View-Models\GameWindowViewModel.cs" />
     <Compile Include="View-Models\MainMenuWindowViewModel.cs" />
+    <Compile Include="View-Models\StatisticsWindowViewModel.cs" />
     <Compile Include="Views\FileWindowView.xaml.cs">
       <DependentUpon>FileWindowView.xaml</DependentUpon>
     </Compile>
@@ -168,19 +170,17 @@
     <Resource Include="Views\Assets\board.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Inputs\Satistics.xml" />
+    <Resource Include="Inputs\test.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Inputs\GameEndTest.xml" />
+    <Resource Include="Inputs\test2.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Inputs\MultipleJumpTest.xml" />
+    <Resource Include="Inputs\endgamesave.xml" />
+    <Resource Include="Inputs\multipleJumpTest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Inputs\KingPieceTest.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Inputs\MultipleJumpIntoKingPieceTest.xml" />
+    <Resource Include="Inputs\GameStatistics.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

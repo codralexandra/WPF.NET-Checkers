@@ -30,7 +30,6 @@
                                         CommandParameter="{Binding}">
                                             <Button.Template>
                                                 <ControlTemplate>
-                                                    <!--" Image Source="{Binding PieceImage}" Stretch="Fill"/-->
                                                     <Image
                                                   Width="50"
                                                     Height="50"
@@ -70,7 +69,7 @@
                     <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold">Player turn:</Label>
                     <Label Name="currentPlayerLabel" Content="{Binding currentPlayer}" FontSize="20"></Label>
                 </WrapPanel>
-                <Button Name="saveButton">Save Game</Button>
+                <Button Name="saveButton" Margin="20" Command="{Binding SaveCommand}">Save Game</Button>
             </StackPanel>
         </WrapPanel>
     </Grid>

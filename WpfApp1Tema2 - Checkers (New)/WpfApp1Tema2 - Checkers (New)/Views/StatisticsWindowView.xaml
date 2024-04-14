@@ -4,9 +4,23 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1Tema2___Checkers__New_.Views"
+        xmlns:ctx="clr-namespace:WpfApp1Tema2___Checkers__New_.View_Models"
         mc:Ignorable="d"
-        Title="StatisticsWindowView" Height="450" Width="800">
+        Title="StatisticsWindowView" Height="250" Width="500">
+    <Window.DataContext>
+        <ctx:StatisticsWindowViewModel/>
+    </Window.DataContext>
     <Grid>
-        
+        <StackPanel>
+            <Label FontWeight="Bold" FontSize="30">Statistics:</Label>
+            <WrapPanel>
+                <Label FontWeight="Bold" FontSize="20">Number of games won by Red:</Label>
+                <Label FontSize="20" Content="{Binding redWon}"></Label>
+            </WrapPanel>
+            <WrapPanel>
+                <Label FontWeight="Bold" FontSize="20">Number of games won by Black:</Label>
+                <Label FontSize="20" Content="{Binding blackWon}"></Label>
+            </WrapPanel>
+        </StackPanel>
     </Grid>
 </Window>

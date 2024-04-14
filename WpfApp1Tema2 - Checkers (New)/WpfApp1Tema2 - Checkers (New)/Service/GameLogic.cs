@@ -1,12 +1,15 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.IO.Packaging;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Xml.Linq;
 using WpfApp1Tema2___Checkers__New_.Models;
 using WpfApp1Tema2___Checkers__New_.View_Models;
 
@@ -53,13 +56,6 @@ namespace WpfApp1Tema2___Checkers__New_.Service
 
         #region methods
 
-        public void TransmitAllowMultipleJump()
-        {
-            // Access the property value from the other ViewModel
-            
-            // Do something with the value...
-        }
-
         public GameLogic(ObservableCollection<ObservableCollection<Cell>> b, FileWindowViewModel fileVM)
         {
             board = b;
@@ -68,6 +64,46 @@ namespace WpfApp1Tema2___Checkers__New_.Service
             RedPieces = 12;
             BlackPieces = 12;
             MultipleJump = fileVM.AllowMultipleJump;
+        }
+
+        private void SaveStatistics()
+        {
+            string filename = "GameStatistics.xml";
+
+            XDocument doc;
+            if (File.Exists(filename))
+            {
+                doc = XDocument.Load(filename);
+            }
+            else
+            {
+                doc = new XDocument(new XElement("GameStatistics"));
+            }
+
+            XElement redWinsElement = doc.Root.Element("RedWins");
+            if (redWinsElement == null)
+            {
+                redWinsElement = new XElement("RedWins", 0);
+                doc.Root.Add(redWinsElement);
+            }
+
+            XElement blackWinsElement = doc.Root.Element("BlackWins");
+            if (blackWinsElement == null)
+            {
+                blackWinsElement = new XElement("BlackWins", 0);
+                doc.Root.Add(blackWinsElement);
+            }
+
+            if (State == GameState.Finished)
+            {
+                int redWins = (currentPlayerColor == PieceColor.Red) ? int.Parse(redWinsElement.Value) + 1 : int.Parse(redWinsElement.Value);
+                int blackWins = (currentPlayerColor == PieceColor.Black) ? int.Parse(blackWinsElement.Value) + 1 : int.Parse(blackWinsElement.Value);
+
+                redWinsElement.Value = redWins.ToString();
+                blackWinsElement.Value = blackWins.ToString();
+            }
+
+            doc.Save(filename);
         }
 
         #region inits
@@ -171,14 +207,9 @@ namespace WpfApp1Tema2___Checkers__New_.Service
             };
         }
 
-        public void InitFromSave(string filename)
+        public static ObservableCollection<ObservableCollection<Cell>> GameBoardFromSave(GameLogic gl)
         {
-            //for opening from save
-        }
-
-        public void SaveGame(string filename)
-        {
-            //to save a game
+            return gl.board;
         }
 
         #endregion
@@ -187,18 +218,6 @@ namespace WpfApp1Tema2___Checkers__New_.Service
         public void Move(Cell position)
         {
             MoveOptions(position);
-
-            //check for end game
-            if (RedPieces == 0 || BlackPieces == 0)
-                State = GameState.Finished;
-
-            if (State == GameState.Finished)
-            {
-                string winner = (RedPieces == 0) ? "Black" : "Red";
-
-                MessageBox.Show($"The game is finished!\nWinner: {winner}\nRed pieces left: {RedPieces}\nBlack pieces left: {BlackPieces}");
-                // Add an option to close the game window
-            }
         }
 
         public void MoveOptions(Cell position)
@@ -209,18 +228,34 @@ namespace WpfApp1Tema2___Checkers__New_.Service
             }
             else if (previousPosition != null && ValidPosition(position))
             {
-                if (previousPosition.PieceColor == currentPlayerColor && board[position.X][position.Y].PieceType == PieceType.None)
+                if (previousPosition.PieceType == PieceType.Normal)
                 {
-                    NormalMove(position);
-                    currentPlayerColor = currentPlayerColor.Opponent();
+                    if (previousPosition.PieceColor == currentPlayerColor && board[position.X][position.Y].PieceType == PieceType.None)
+                    {
+                        NormalMove(position);
+                        currentPlayerColor = currentPlayerColor.Opponent();
+                    }
+                    else if (previousPosition.PieceColor == currentPlayerColor && board[position.X][position.Y].PieceColor == currentPlayerColor.Opponent())
+                    {
+                        TakeOverMove(position);
+                    }
                 }
-                else if (previousPosition.PieceColor == currentPlayerColor && board[position.X][position.Y].PieceColor == currentPlayerColor.Opponent())
+                else if (previousPosition.PieceType == PieceType.King)
                 {
-                    TakeOverMove(position);
+                    if (previousPosition.PieceColor == currentPlayerColor && board[position.X][position.Y].PieceType == PieceType.None)
+                    {
+                        KingMove(position);
+                    }
+                    else if (previousPosition.PieceColor == currentPlayerColor && board[position.X][position.Y].PieceColor == currentPlayerColor.Opponent())
+                    {
+                        TakeOverMove(position);
+                    }
                 }
             }
             else
+            {
                 DeselectPiece();
+            }
         }
 
         public bool ValidPosition(Cell position)
@@ -249,46 +284,42 @@ namespace WpfApp1Tema2___Checkers__New_.Service
 
         public void NormalMove(Cell position)
         {
-            //pt red pieces
+
             if (currentPlayerColor == PieceColor.Red && position.X == previousPosition.X + 1 && (position.Y == previousPosition.Y - 1 || position.Y == previousPosition.Y + 1))
             {
-                //pune piesa pe pozitia noua
                 board[position.X][position.Y].PieceImage = board[previousPosition.X][previousPosition.Y].SelectedImage;
-                //seteaza PieceType si PieceColor pt noua pozitie
+  
                 board[position.X][position.Y].PieceType = PieceType.Normal;
                 board[position.X][position.Y].PieceColor = PieceColor.Red;
-                //seteaza PieceImage pt noua pozitie
+ 
                 board[position.X][position.Y].PieceImage = "Assets/redPiece.png";
                 board[position.X][position.Y].SelectedImage = "Assets/selectedPiece.png";
-                //sterge de pe previous position
+
                 board[previousPosition.X][previousPosition.Y].PieceImage = "Assets/Empty.png";
                 board[previousPosition.X][previousPosition.Y].SelectedImage = "Assets/selectedPiece.png";
                 board[previousPosition.X][previousPosition.Y].PieceType = PieceType.None;
                 board[previousPosition.X][previousPosition.Y].PieceColor = PieceColor.None;
-                //resetam pozitiile
+
                 previousPosition = null;
             }
-            //pt black pieces
             else if (currentPlayerColor == PieceColor.Black && position.X == previousPosition.X - 1 && (position.Y == previousPosition.Y - 1 || position.Y == previousPosition.Y + 1))
             {
-                //pune piesa pe pozitia noua
+
                 board[position.X][position.Y].PieceImage = board[previousPosition.X][previousPosition.Y].SelectedImage;
-                //seteaza PieceType si PieceColor pt noua pozitie
+ 
                 board[position.X][position.Y].PieceType = PieceType.Normal;
                 board[position.X][position.Y].PieceColor = PieceColor.Black;
-                //seteaza PieceImage pt noua pozitie
+  
                 board[position.X][position.Y].PieceImage = "Assets/blackPiece.png";
                 board[position.X][position.Y].SelectedImage = "Assets/selectedPiece.png";
-                //sterge de pe previous position
+
                 board[previousPosition.X][previousPosition.Y].PieceImage = "Assets/Empty.png";
                 board[previousPosition.X][previousPosition.Y].SelectedImage = "Assets/selectedPiece.png";
                 board[previousPosition.X][previousPosition.Y].PieceType = PieceType.None;
                 board[previousPosition.X][previousPosition.Y].PieceColor = PieceColor.None;
-                //resetam pozitiile
                 previousPosition = null;
             }
 
-            //change piece to king
             if (currentPlayerColor == PieceColor.Red && position.X == 7)
             {
                 PromoteToKing(position);
@@ -305,11 +336,15 @@ namespace WpfApp1Tema2___Checkers__New_.Service
         {
             if (previousPosition != null)
             {
-                string aux = board[previousPosition.X][previousPosition.Y].PieceImage;
-                board[previousPosition.X][previousPosition.Y].PieceImage = previousPosition.SelectedImage;
-                board[previousPosition.X][previousPosition.Y].SelectedImage = aux;
-                if(board[previousPosition.X][previousPosition.Y].PieceColor != currentPlayerColor)
-                    previousPosition = null;
+                // Check if the selected piece belongs to the current player
+                if (board[previousPosition.X][previousPosition.Y].PieceColor == currentPlayerColor)
+                {
+                    // Reset the piece image to its original state
+                    board[previousPosition.X][previousPosition.Y].PieceImage = previousPosition.PieceImage;
+                    board[previousPosition.X][previousPosition.Y].SelectedImage = "Assets/selectedPiece.png";
+                }
+                // Reset the previous position
+                previousPosition = null;
             }
         }
 
@@ -331,28 +366,33 @@ namespace WpfApp1Tema2___Checkers__New_.Service
             int newX = previousPosition.X + 2 * direction;
             int newY = (position.Y > previousPosition.Y) ? position.Y + 1 : position.Y - 1;
 
-
-            if (newX >= 0 && newX < board.Count && newY >= 0 && newY < board[newX].Count && board[newX][newY].PieceType==PieceType.None)
+            if (board[previousPosition.X][previousPosition.Y].PieceType == PieceType.King)
             {
-                //move the previous piece to the new position
+                int directionX = (position.X > previousPosition.X) ? 1 : -1;
+                int directionY = (position.Y > previousPosition.Y) ? 1 : -1;
+
+                newX = previousPosition.X + 2 * directionX;
+                newY = previousPosition.Y + 2 * directionY;
+            }
+
+            if (newX >= 0 && newX < board.Count && newY >= 0 && newY < board[newX].Count && board[newX][newY].PieceType == PieceType.None)
+            {
                 board[newX][newY].PieceImage = board[previousPosition.X][previousPosition.Y].SelectedImage;
                 board[newX][newY].PieceType = board[previousPosition.X][previousPosition.Y].PieceType;
                 board[newX][newY].PieceColor = currentPlayerColor;
 
-                //empty the cell of the capured piece
-                int capturedX = (newX + previousPosition.X) / 2; 
+                int capturedX = (newX + previousPosition.X) / 2;
                 int capturedY = (newY + previousPosition.Y) / 2;
                 board[capturedX][capturedY].PieceImage = "Assets/Empty.png";
                 board[capturedX][capturedY].PieceType = PieceType.None;
                 board[capturedX][capturedY].PieceColor = PieceColor.None;
 
-                //clear the previous cell of the selected piece to move
                 board[previousPosition.X][previousPosition.Y].PieceImage = "Assets/Empty.png";
                 board[previousPosition.X][previousPosition.Y].SelectedImage = "Assets/selectedPiece.png";
                 board[previousPosition.X][previousPosition.Y].PieceType = PieceType.None;
                 board[previousPosition.X][previousPosition.Y].PieceColor = PieceColor.None;
 
-                previousPosition = null; //daca e multiple jump available you need this to not be null
+                previousPosition = null;
 
                 if (currentPlayerColor.Opponent() == PieceColor.Red)
                     RedPieces--;
@@ -369,16 +409,27 @@ namespace WpfApp1Tema2___Checkers__New_.Service
                 }
 
                 if (MultipleJump && AdditionalTakeOverMoves(newX, newY))
-                { 
+                {
                     previousPosition = board[newX][newY];
                 }
                 else
                 {
                     previousPosition = null;
                     currentPlayerColor = currentPlayerColor.Opponent();
-                }            
+                }
             }
 
+            if (RedPieces == 0 || BlackPieces == 0)
+                State = GameState.Finished;
+
+            if (State == GameState.Finished)
+            {
+                string winner = (RedPieces == 0) ? "Black" : "Red";
+
+                MessageBox.Show($"The game is finished!\nWinner: {winner}\nRed pieces left: {RedPieces}\nBlack pieces left: {BlackPieces}");
+                currentPlayerColor = currentPlayerColor.Opponent();
+                SaveStatistics();
+            }
         }
 
         private bool AdditionalTakeOverMoves(int x, int y)
@@ -397,36 +448,30 @@ namespace WpfApp1Tema2___Checkers__New_.Service
         {
             int direction = (currentPlayerColor == PieceColor.Red) ? 1 : -1;
 
-            // Check if there are any opponent pieces adjacent to the piece at position (x, y)
             if (x + 2 * direction >= 0 && x + 2 * direction < board.Count)
             {
                 if (y - 2 >= 0 && board[x + 2 * direction][y - 2].PieceType == PieceType.None)
                 {
-                    // Check if the cell diagonally opposite to (x, y) is empty
                     if (board[x + direction][y - 1].PieceColor == currentPlayerColor.Opponent())
                     {
-                        return true; // Additional take-over move is possible
+                        return true;
                     }
                 }
 
                 if (y + 2 < board[x + 2 * direction].Count && board[x + 2*direction][y + 2].PieceType == PieceType.None)
                 {
-                    // Check if the cell diagonally opposite to (x, y) is empty
                     if (board[x + direction][y + 1].PieceColor == currentPlayerColor.Opponent())
                     {
-                        return true; // Additional take-over move is possible
+                        return true;
                     }
                 }
             }
 
-            return false; // No additional take-over moves possible
+            return false;
         }
 
         private bool AdditionalTakeOverMovesForKing(int x, int y)
         {
-            // King pieces can move forward and backward
-            // Check if there are any opponent pieces adjacent to the king piece at position (x, y)
-            // and whether the cells diagonally opposite to those pieces are empty
             int[] dx = { -1, -1, 1, 1 };
             int[] dy = { -1, 1, -1, 1 };
 
@@ -444,22 +489,20 @@ namespace WpfApp1Tema2___Checkers__New_.Service
                     if (nextX >= 0 && nextX < board.Count && nextY >= 0 && nextY < board[nextX].Count &&
                         board[nextX][nextY].PieceType == PieceType.None)
                     {
-                        return true; // Additional take-over move is possible
+                        return true;
                     }
                 }
             }
 
-            return false; // No additional take-over moves possible
+            return false;
         }
         #endregion
 
         #region king-piece behaviours
         private void PromoteToKing(Cell position)
         {
-            // Set the piece type to King
             board[position.X][position.Y].PieceType = PieceType.King;
 
-            // Update the piece image based on the player color
             if (currentPlayerColor == PieceColor.Red)
             {
                 board[position.X][position.Y].PieceImage = "Assets/redPieceKing.png";
@@ -472,52 +515,50 @@ namespace WpfApp1Tema2___Checkers__New_.Service
 
         public void KingMove(Cell position)
         {
-            int directionX = (position.X > previousPosition.X) ? 1 : -1;
-            int directionY = (position.Y > previousPosition.Y) ? 1 : -1;
+            int deltaX = Math.Abs(position.X - previousPosition.X);
+            int deltaY = Math.Abs(position.Y - previousPosition.Y);
 
-            if (Math.Abs(position.X - previousPosition.X) == 1 && Math.Abs(position.Y - previousPosition.Y) == 1)
+            if (deltaX == 1 && deltaY == 1 && board[position.X][position.Y].PieceType != PieceType.Normal)
             {
-                // Destination cell
                 Cell destCell = board[position.X][position.Y];
 
-                // Check if destination cell is empty or contains an opponent's piece
                 if (destCell.PieceType == PieceType.None || destCell.PieceColor == currentPlayerColor.Opponent())
                 {
-                    // Move the king piece
                     destCell.PieceImage = board[previousPosition.X][previousPosition.Y].SelectedImage;
                     destCell.PieceType = PieceType.King;
                     destCell.PieceColor = currentPlayerColor;
                     destCell.SelectedImage = "Assets/selectedPiece.png";
 
-                    // Clear the previous position
                     board[previousPosition.X][previousPosition.Y].PieceImage = "Assets/Empty.png";
                     board[previousPosition.X][previousPosition.Y].SelectedImage = "Assets/selectedPiece.png";
                     board[previousPosition.X][previousPosition.Y].PieceType = PieceType.None;
                     board[previousPosition.X][previousPosition.Y].PieceColor = PieceColor.None;
 
-                    // Clear the cell of the captured piece, if any
-                    if (destCell.PieceType != PieceType.None)
-                    {
-                        int capturedX = (position.X + previousPosition.X) / 2;
-                        int capturedY = (position.Y + previousPosition.Y) / 2;
-                        board[capturedX][capturedY].PieceImage = "Assets/Empty.png";
-                        board[capturedX][capturedY].PieceType = PieceType.None;
-                        board[capturedX][capturedY].PieceColor = PieceColor.None;
-
-                        // Update piece count
-                        if (currentPlayerColor.Opponent() == PieceColor.Red)
-                            RedPieces--;
-                        else if (currentPlayerColor.Opponent() == PieceColor.Black)
-                            BlackPieces--;
-                    }
-
-                    // Reset previous position
                     previousPosition = null;
 
-                    // Switch player turn
                     currentPlayerColor = currentPlayerColor.Opponent();
                 }
             }
+
+            if (RedPieces == 0 || BlackPieces == 0)
+                State = GameState.Finished;
+
+            if (State == GameState.Finished)
+            {
+                string winner = (RedPieces == 0) ? "Black" : "Red";
+
+                MessageBox.Show($"The game is finished!\nWinner: {winner}\nRed pieces left: {RedPieces}\nBlack pieces left: {BlackPieces}");
+                currentPlayerColor = currentPlayerColor.Opponent();
+                SaveStatistics();
+            }
+        }
+
+        private bool ValidKingPosition(Cell position)
+        {
+            int deltaX = Math.Abs(position.X - previousPosition.X);
+            int deltaY = Math.Abs(position.Y - previousPosition.Y);
+
+            return deltaX == 1 && deltaY == 1 && board[position.X][position.Y].PieceType != PieceType.Normal;
         }
         #endregion
 

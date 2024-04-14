@@ -23,7 +23,7 @@ namespace WpfApp1Tema2___Checkers__New_.Views
         public GameWindowView()
         {
             InitializeComponent();
-            DataContext = new FileWindowViewModel();
+            DataContext = new GameWindowViewModel(new FileWindowViewModel());
         }
     }
 }

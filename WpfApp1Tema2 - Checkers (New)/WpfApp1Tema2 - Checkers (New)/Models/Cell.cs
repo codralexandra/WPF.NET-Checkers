@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace WpfApp1Tema2___Checkers__New_.Models
 {
+    [Serializable]
     public class Cell : BaseNotification
     {
+        public Cell()
+        {
+        }
         public Cell(
             int x,
             int y,
